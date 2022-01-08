@@ -119,8 +119,8 @@ namespace LINQ_AddressBook
             ContactDataManager contactDataManager = new ContactDataManager();
             ContactDataManager contactDataManagers = new ContactDataManager();
             //Insert Values into Table
-            contactDataManager.FirstName = "Shalini";
-            contactDataManager.LastName = "Venkatesh";
+            contactDataManager.FirstName = "Arati";
+            contactDataManager.LastName = "Naik";
             contactDataManager.PhoneNumber = 9842905050;
             contactDataManager.Email = "shalini@gmail.com";
             contactDataManager.Address = "4,B Block,Avadi";
@@ -157,6 +157,18 @@ namespace LINQ_AddressBook
             dtRow["Email"] = contactDataManager.Email;
             custTable.Rows.Add(dtRow);
 
+        }
+        public int EditDataTable(string FirstName, string ColumnName)
+        {
+            AddValues();
+            var modifiedList = (from ContactList in custTable.AsEnumerable() where ContactList.Field<string>("FirstName") == FirstName select ContactList).FirstOrDefault();
+            if (modifiedList != null)
+            {
+                modifiedList[ColumnName] = "Sing";
+                Display();
+                return 1;
+            }
+            else return 0;
         }
         //Display all Values in DataRow
         public void Display()
