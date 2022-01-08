@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 
 namespace LINQ_AddressBook
@@ -165,6 +166,20 @@ namespace LINQ_AddressBook
             if (modifiedList != null)
             {
                 modifiedList[ColumnName] = "Sing";
+                Display();
+                return 1;
+            }
+            else return 0;
+        }
+        //Delete a row from DataTable based on Name
+        public int DeleteRowInDataTable(string FirstName)
+        {
+            AddValues();
+            var modifiedList = (from ContactList in custTable.AsEnumerable() where ContactList.Field<string>("FirstName") == FirstName select ContactList).FirstOrDefault();
+            if (modifiedList != null)
+            {
+                modifiedList.Delete();
+                Console.WriteLine("--- After Deletion ---");
                 Display();
                 return 1;
             }
